@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="api_paises.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2 class="h">Escolha um Pais</h2>
+
+      <!-- botão para buscar informações -->
+      <button @click="puxarPaise">Buscar</button>
+
+      <select name="paises" id="paises" v-model="paisSelecionado">
+        <!-- aba para mostrar os paise retornados 
+          obs: laço for para retornar paises vindo da api
+        obs: value com (:) a frente pois trata-se de um metodo Vue-->
+        <option value="" v-for="pais in paises " :value="pais.name">
+          <!-- retorno da lista na tela -->
+          {{pais.name}}
+        </option>
+      </select>
+      <!-- local de retorno da variavel escolhida na lista -->
+      <h2>A Capital é : {{valores.capital}}</h2>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          valores: '',
+          paisSelecionado: '',
+          paises: {}
+        },
+        methods: {
+          //metodo para buscar dados na api
+          puxarPaise() {
+            fetch('https://restcountries.eu/rest/v2/all')
+              .then(r => r.json())
+              .then(r => {
+                this.paises = r
+              })
+          }
+        },
+        watch: {
+          //metodo para buscar a capital do pais
+          paisSelecionado(valor) {
+            this.valores = this.paises.find(pais => pais.name === valor)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
