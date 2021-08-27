@@ -14,7 +14,7 @@
 
       <!-- botão para buscar informações -->
       <button @click="puxarPaise">Buscar</button>
-
+      <p>Escolha o Pais:</p>
       <select name="paises" id="paises" v-model="paisSelecionado">
         <!-- aba para mostrar os paise retornados 
           obs: laço for para retornar paises vindo da api
@@ -25,7 +25,7 @@
         </option>
       </select>
       <!-- local de retorno da variavel escolhida na lista -->
-      <h2>A Capital é : {{valores.capital}}</h2>
+      <p>A Capital é : {{valores.capital}}</p>
     </div>
 
     <script>
